@@ -1,5 +1,6 @@
 package com.hckim.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -83,7 +84,10 @@ public class ActivityMoveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(ActivityMoveActivity.this, "잘 되나?", Toast.LENGTH_SHORT).show();
-
+                // 의도
+                // 화면 새로 띄우는 코드
+                Intent intent = new Intent(ActivityMoveActivity.this, BasketballActivity.class);
+                startActivity(intent);
             }
         });
     }
