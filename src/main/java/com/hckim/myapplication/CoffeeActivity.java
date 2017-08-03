@@ -3,6 +3,7 @@ package com.hckim.myapplication;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -14,6 +15,7 @@ public class CoffeeActivity extends AppCompatActivity {
     public static final int COFFEE_PRICE = 3000; // D(3)의 결과
     private TextView mQuantityTextView;
     private TextView mPriceTetView; // B(1)
+    private CheckBox mWhippedCreamCheckBox; // E(2)
     //    private int mQuantity = 1;
     private int mQuantity = DEFAULT_QUANTITY; // (2)'' D(2)
 
@@ -31,6 +33,7 @@ public class CoffeeActivity extends AppCompatActivity {
 //        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text); (2) Find Action field
         mQuantityTextView = (TextView) findViewById(R.id.quantity_text); // (2)' cf. 우클릭 refactor
         mPriceTetView = (TextView) findViewById(R.id.price_text); // B(2)
+        mWhippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_check); // E(3)
 //        Button minusButton = (Button) findViewById(R.id.minus_button); // onClick 방법 쓴다
 //        Button plusButton = (Button) findViewById(R.id.plus_button);
 
@@ -68,7 +71,13 @@ public class CoffeeActivity extends AppCompatActivity {
 
     private void display() {
         mQuantityTextView.setText("" + mQuantity);
-        mPriceTetView.setText(mFormat.format(mQuantity * COFFEE_PRICE) + "원"); // D(4) Alt Enter method
+
+        String message = "휘핑크림 추가 여부: " + mWhippedCreamCheckBox.isChecked(); // E(4)
+        message += "\n갯수: " + mQuantity;
+        message += "\n가격: " + mFormat.format(mQuantity * COFFEE_PRICE) + "원";
+
+//        mPriceTetView.setText(mFormat.format(mQuantity * COFFEE_PRICE) + "원"); // D(4) Alt Enter method
+        mPriceTetView.setText(message); // E(5)
     }
 
     public void minusButtonClicked(View view) { // (1) 전역변수 필요
@@ -86,5 +95,10 @@ public class CoffeeActivity extends AppCompatActivity {
     public void plusButtonClicked(View view) {
         mQuantity++;
         display(); // D(4)''' D(4)의 결과
+    }
+
+    public void onCheckBoxClicked(View view) { // E(1)
+//        Toast.makeText(this, "잘 되나?", Toast.LENGTH_SHORT).show();
+        display();
     }
 }

@@ -23,7 +23,7 @@ public class BasketballActivity extends AppCompatActivity {
     public void onButtonClicked(View view) { // (1) view 눌린 버튼의 레퍼런스가 온다
         switch (view.getId()) { // (2)
             case R.id.a_1_button:
-                mScoreA++;
+                mScoreA++; //
                 break;
             case R.id.a_2_button:
                 mScoreA += 2;
