@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -16,6 +17,7 @@ public class CoffeeActivity extends AppCompatActivity {
     private TextView mQuantityTextView;
     private TextView mPriceTetView; // B(1)
     private CheckBox mWhippedCreamCheckBox; // E(2)
+    private EditText mNameEditText; // F(1)
     //    private int mQuantity = 1;
     private int mQuantity = DEFAULT_QUANTITY; // (2)'' D(2)
 
@@ -34,6 +36,7 @@ public class CoffeeActivity extends AppCompatActivity {
         mQuantityTextView = (TextView) findViewById(R.id.quantity_text); // (2)' cf. 우클릭 refactor
         mPriceTetView = (TextView) findViewById(R.id.price_text); // B(2)
         mWhippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_check); // E(3)
+        mNameEditText = (EditText) findViewById(R.id.name_edit); // F(2)
 //        Button minusButton = (Button) findViewById(R.id.minus_button); // onClick 방법 쓴다
 //        Button plusButton = (Button) findViewById(R.id.plus_button);
 
@@ -72,7 +75,8 @@ public class CoffeeActivity extends AppCompatActivity {
     private void display() {
         mQuantityTextView.setText("" + mQuantity);
 
-        String message = "휘핑크림 추가 여부: " + mWhippedCreamCheckBox.isChecked(); // E(4)
+        String message = "주문자: " + mNameEditText.getText().toString(); // F(3)
+        message += "\n휘핑크림 추가 여부: " + mWhippedCreamCheckBox.isChecked(); // E(4)
         message += "\n갯수: " + mQuantity;
         message += "\n가격: " + mFormat.format(mQuantity * COFFEE_PRICE) + "원";
 
