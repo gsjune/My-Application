@@ -72,21 +72,61 @@ public class ActivityMoveActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-    // 방법 4
+    // 방법 4: best
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_move);
+//
+////        Button button = (Button) findViewById(R.id.button);
+////        button.setOnClickListener(new View.OnClickListener() {
+//        findViewById(R.id.basketball_button).setOnClickListener(new View.OnClickListener() { // 코드로 하는 방법 중 best. cf. xml onClick
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(ActivityMoveActivity.this, "잘 되나?", Toast.LENGTH_SHORT).show();
+//                // 의도
+//                // 화면 새로 띄우는 코드
+//                Intent intent = new Intent(ActivityMoveActivity.this, BasketballActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        Toast.makeText(ActivityMoveActivity.this, "", Toast.LENGTH_SHORT).show();
+//    }
+
+    // 압축 정리
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_move);
+//
+//        findViewById(R.id.basketball_button).setOnClickListener(new View.OnClickListener() { // 코드로 하는 방법 중 best. cf. xml onClick
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(ActivityMoveActivity.this, BasketballActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_move);
 
-//        Button button = (Button) findViewById(R.id.button);
-//        button.setOnClickListener(new View.OnClickListener() {
         findViewById(R.id.basketball_button).setOnClickListener(new View.OnClickListener() { // 코드로 하는 방법 중 best. cf. xml onClick
             @Override
             public void onClick(View v) {
-//                Toast.makeText(ActivityMoveActivity.this, "잘 되나?", Toast.LENGTH_SHORT).show();
-                // 의도
-                // 화면 새로 띄우는 코드
                 Intent intent = new Intent(ActivityMoveActivity.this, BasketballActivity.class);
+                startActivity(intent);
+            }
+        });
+        // 데이터 전송
+        findViewById(R.id.send_data_button).setOnClickListener(new View.OnClickListener() { // D(1)
+            @Override
+            public void onClick(View v) {
+                String message = "june, 열심히 하세요";
+                Intent intent = new Intent(ActivityMoveActivity.this, TargetActivity.class); // D(2) TargetActivity 만듦
+                intent.putExtra("data", message); // D(3)
                 startActivity(intent);
             }
         });
