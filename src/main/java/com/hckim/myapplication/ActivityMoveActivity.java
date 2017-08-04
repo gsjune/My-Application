@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 public class ActivityMoveActivity extends AppCompatActivity {
+    public static final int REQUEST_CODE_AGE = 1000;
 
     // 방법 1
 //    @Override
@@ -113,22 +115,38 @@ public class ActivityMoveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_move);
 
-        findViewById(R.id.basketball_button).setOnClickListener(new View.OnClickListener() { // 코드로 하는 방법 중 best. cf. xml onClick
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityMoveActivity.this, BasketballActivity.class);
-                startActivity(intent);
-            }
-        });
+//        // 데이터 전송만
+//        findViewById(R.id.send_data_button).setOnClickListener(new View.OnClickListener() { // D(1)
+//            @Override
+//            public void onClick(View v) {
+//                String message = "june, 열심히 하세요";
+//                Intent intent = new Intent(ActivityMoveActivity.this, TargetActivity.class); // D(2) TargetActivity 만듦
+//                intent.putExtra("data", message); // D(3)
+//                startActivity(intent);
+//            }
+//        });
+
         // 데이터 전송
-        findViewById(R.id.send_data_button).setOnClickListener(new View.OnClickListener() { // D(1)
+        findViewById(R.id.send_data_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String message = "june, 열심히 하세요";
-                Intent intent = new Intent(ActivityMoveActivity.this, TargetActivity.class); // D(2) TargetActivity 만듦
-                intent.putExtra("data", message); // D(3)
-                startActivity(intent);
-            }
+                String message = "june, 몇 살이에요";
+                Intent intent = new Intent(ActivityMoveActivity.this, TargetActivity.class);
+                intent.putExtra("data", message);
+//                intent.putExtra("age", 10); // 예
+                startActivityForResult(intent, REQUEST_CODE_AGE); // E(1)l(1) 상수로 만듦
+           }
         });
+    }
+
+    // startActivityForResult 결과 받는 곳
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { // l(3) onac... Enter
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_AGE && resultCode == RESULT_OK && data != null) {
+            int age = data.getIntExtra("age", 0);
+            Toast.makeText(this, "" + age, Toast.LENGTH_SHORT).show();
+        }
     }
 }

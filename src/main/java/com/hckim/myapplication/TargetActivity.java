@@ -17,12 +17,28 @@ public class TargetActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             String message = intent.getStringExtra("data");
+//            int age = intent.getIntExtra("age", 0); // 예
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         }
     }
 
+//    public void onFinishButtonClicked(View view) {
+//        // 액티비티 종료
+//        finish();
+//    }
+
     public void onFinishButtonClicked(View view) {
-        // 액티비티 종료
+        // 나이 돌려 주자
+        Intent intent = new Intent(); // l(2)
+
+//        // 성공
+//        setResult(RESULT_OK);
+//        // 실패
+//        setResult(RESULT_CANCELED);
+
+        intent.putExtra("age", 28);
+        setResult(RESULT_OK, intent);
+
         finish();
     }
 }
