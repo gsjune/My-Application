@@ -44,4 +44,19 @@ public class ImplicitIntentActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    public void sendMessage(View view) {
+        EditText messageEditText = (EditText) findViewById(R.id.message_edit);
+
+        sendTextMessage(messageEditText.getText().toString());
+    }
+
+    public void sendTextMessage(String message) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 }
