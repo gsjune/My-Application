@@ -29,11 +29,20 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView.setWebViewClient(new WebViewClient()); // (9) 중요
     }
 
-    public void goBack(View view) {
+    public void goBack(View view) { // B(1)
         mWebView.goBack();
     }
 
-    public void goForward(View view) {
+    public void goForward(View view) { // B(2)
         mWebView.goForward();
+    }
+
+    @Override
+    public void onBackPressed() { // B(3) onb... Enter
+        if (mWebView.canGoBack()) {
+            mWebView.goBack();
+        } else {
+            super.onBackPressed(); // 종료
+        }
     }
 }
