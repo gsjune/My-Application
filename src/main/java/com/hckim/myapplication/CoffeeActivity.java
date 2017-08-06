@@ -1,5 +1,7 @@
 package com.hckim.myapplication;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,7 +17,7 @@ public class CoffeeActivity extends AppCompatActivity {
     public static final int DEFAULT_QUANTITY = 1; // D(2)의 결과
     public static final int COFFEE_PRICE = 3000; // D(3)의 결과
     private TextView mQuantityTextView;
-    private TextView mPriceTetView; // B(1)
+    private TextView mPriceTextView; // B(1)
     private CheckBox mWhippedCreamCheckBox; // E(2)
     private EditText mNameEditText; // F(1)
     //    private int mQuantity = 1;
@@ -34,7 +36,7 @@ public class CoffeeActivity extends AppCompatActivity {
         // xml에 있는 View의 레퍼런스를 가져오는 방법
 //        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text); (2) Find Action field
         mQuantityTextView = (TextView) findViewById(R.id.quantity_text); // (2)' cf. 우클릭 refactor
-        mPriceTetView = (TextView) findViewById(R.id.price_text); // B(2)
+        mPriceTextView = (TextView) findViewById(R.id.price_text); // B(2)
         mWhippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_check); // E(3)
         mNameEditText = (EditText) findViewById(R.id.name_edit); // F(2)
 //        Button minusButton = (Button) findViewById(R.id.minus_button); // onClick 방법 쓴다
@@ -81,7 +83,7 @@ public class CoffeeActivity extends AppCompatActivity {
         message += "\n가격: " + mFormat.format(mQuantity * COFFEE_PRICE) + "원";
 
 //        mPriceTetView.setText(mFormat.format(mQuantity * COFFEE_PRICE) + "원"); // D(4) Alt Enter method
-        mPriceTetView.setText(message); // E(5)
+        mPriceTextView.setText(message); // E(5)
     }
 
     public void minusButtonClicked(View view) { // (1) 전역변수 필요
@@ -104,5 +106,20 @@ public class CoffeeActivity extends AppCompatActivity {
     public void onCheckBoxClicked(View view) { // E(1)
 //        Toast.makeText(this, "잘 되나?", Toast.LENGTH_SHORT).show();
         display();
+    }
+
+    public void order(View view) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+//        Intent intent = new Intent();
+//        intent.setAction(Intent.ACTION_SENDTO);
+
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"master@suwonsmartapp.com"});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "주문이요!!");
+        intent.putExtra(Intent.EXTRA_TEXT, mPriceTextView.getText().toString());
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+
     }
 }
