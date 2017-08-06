@@ -17,7 +17,7 @@ public class ImplicitIntentActivity extends AppCompatActivity {
         // ...findViewById()... 원래 여기(필드)에서 하는 게 맞음. 예제를 버튼마다 여러 개 만들 것인데 메소드 안에서 하는 것으로
     }
 
-    public void openWebBrowser(View view) {
+    public void openWebBrowser(View view) { // (1) 웹브라우저 열기
         EditText urlEditText = (EditText) findViewById(R.id.url_edit);
 
         openWebPage(urlEditText.getText().toString());
@@ -31,7 +31,7 @@ public class ImplicitIntentActivity extends AppCompatActivity {
         }
     }
 
-    public void dialPhone(View view) {
+    public void dialPhone(View view) { // (2) 전화 걸기
         EditText phoneEditText = (EditText) findViewById(R.id.phone_edit);
 
         dialPhoneNumber(phoneEditText.getText().toString());
@@ -45,7 +45,7 @@ public class ImplicitIntentActivity extends AppCompatActivity {
         }
     }
 
-    public void sendMessage(View view) {
+    public void sendMessage(View view) { // (3) 텍스트 전송
         EditText messageEditText = (EditText) findViewById(R.id.message_edit);
 
         sendTextMessage(messageEditText.getText().toString());
