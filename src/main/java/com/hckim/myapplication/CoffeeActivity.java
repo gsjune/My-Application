@@ -121,5 +121,6 @@ public class CoffeeActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
 
+        }
     }
 }
