@@ -45,7 +45,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".TargetActivity" />
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:label="로그인">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +55,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Target2Activity" />
-        <activity android:name=".ImplicitIntentActivity"
+        <activity
+            android:name=".ImplicitIntentActivity"
             android:label="암시적 인텐트">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,7 +64,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebViewActivity"
+        <activity
+            android:name=".WebViewActivity"
             android:label="웹뷰">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,6 +73,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignUpActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SignUpMessageActivity"></activity>
     </application>
 
 </manifest>
