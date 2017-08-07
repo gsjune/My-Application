@@ -1,6 +1,7 @@
 package com.hckim.myapplication.adapterview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class PeopleAdapter extends BaseAdapter { // (1) Alt Enter Implement meth
 //        return null;
 //    }
 
+    private final String TAG = PeopleAdapter.class.getSimpleName(); // D(1)
     private final List<People> mData; // (3)의 결과
     private final Context mContext; // B(2)의 결과
 
@@ -71,6 +73,7 @@ public class PeopleAdapter extends BaseAdapter { // (1) Alt Enter Implement meth
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder; // C(2)
         if (convertView == null) {
+            Log.d(TAG, "getView 최초: " + position); // D(2)
             // 최초
             // 레이아웃 가져오기
             convertView = LayoutInflater.from(mContext)
@@ -86,6 +89,7 @@ public class PeopleAdapter extends BaseAdapter { // (1) Alt Enter Implement meth
             convertView.setTag(holder); // C(5)
 
         } else {
+            Log.d(TAG, "getView 재사용: " + position);
             // 재사용
             holder = (ViewHolder) convertView.getTag(); // C(6)
         }
