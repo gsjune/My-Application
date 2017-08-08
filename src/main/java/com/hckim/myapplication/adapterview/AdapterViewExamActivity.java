@@ -1,5 +1,6 @@
 package com.hckim.myapplication.adapterview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -82,6 +83,12 @@ public class AdapterViewExamActivity extends AppCompatActivity {
 //                Log.e(TAG, "onItemClick: 에러"); // error
 //                Log.i(TAG, "onItemClick: 정보"); // information
 //                Log.w(TAG, "onItemClick: 경고"); // warning
+
+                Intent intent = new Intent(AdapterViewExamActivity.this, DetailAddressActivity.class); // E(1) 데이터 전달
+                intent.putExtra("name", people.getName());
+                intent.putExtra("phone", people.getPhone());
+                intent.putExtra("picture", people.getPicture());
+                startActivity(intent);
             }
         });
 
