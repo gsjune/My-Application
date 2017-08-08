@@ -1,7 +1,9 @@
 package com.hckim.myapplication.adapterview;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -10,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +25,7 @@ public class AdapterViewExamActivity extends AppCompatActivity {
     private static final String TAG = AdapterViewExamActivity.class.getSimpleName(); // C(1)의 결과
     private ArrayList<People> mPeopleData; // F(4)의 결과
     private PeopleAdapter mAdapter; // F(6)의 결과
+    private EditText mWeatherEditText; // G(1)의 결과
 
     //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +115,13 @@ public class AdapterViewExamActivity extends AppCompatActivity {
 
         // Context 메뉴 연결
         registerForContextMenu(listView); // F(2) 롱클릭과 같이 쓸 수 없다(롱클릭 주석 처리)
+
+        // SharedPreference 데이터 복원
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this); // G(1)
+        String weather = settings.getString("weather", "맑음");
+
+        mWeatherEditText = (EditText) findViewById(R.id.weather_edit);
+        mWeatherEditText.setText(weather);
     }
 
     @Override
@@ -167,5 +178,19 @@ public class AdapterViewExamActivity extends AppCompatActivity {
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() { // G(2)
+        // 저장
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("weather", mWeatherEditText.getText().toString());
+
+        // Commit the edits! 비동기
+        editor.apply();
+
+        // 뒤로 가기
+        super.onBackPressed();
     }
 }
