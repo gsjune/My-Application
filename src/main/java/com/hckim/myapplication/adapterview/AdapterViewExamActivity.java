@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 public class AdapterViewExamActivity extends AppCompatActivity {
 
     private static final String TAG = AdapterViewExamActivity.class.getSimpleName(); // C(1)의 결과
+    private ArrayList<People> mPeopleData; // F(4)의 결과
+    private PeopleAdapter mAdapter; // F(6)의 결과
 
     //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,8 @@ public class AdapterViewExamActivity extends AppCompatActivity {
 
         // Data
 //        final ArrayList<People> data = new ArrayList<>();
-        ArrayList<People> data = new ArrayList<>();
+//        ArrayList<People> data = new ArrayList<>(); // Find Action field Enter 결과 F(4)
+        mPeopleData = new ArrayList<>(); // F(4)
         for (int i = 0; i < 100; i++) {
             int picture;
             if (i % 2 == 0) {
@@ -59,16 +64,17 @@ public class AdapterViewExamActivity extends AppCompatActivity {
                 picture = R.mipmap.ic_launcher;
             }
             People people = new People("아무개 " + i, "전화번호 " + i, picture);
-            data.add(people);
+            mPeopleData.add(people);
         }
 
         // Adapter
 //        ArrayAdapter<People> adapter = new ArrayAdapter<People>(AdapterViewExamActivity.this,
 //                android.R.layout.simple_list_item_1,
 //                data); // 다시 만들어야 함
-        PeopleAdapter adapter = new PeopleAdapter(AdapterViewExamActivity.this, data);
+//        PeopleAdapter adapter = new PeopleAdapter(AdapterViewExamActivity.this, mPeopleData); // Find Action field Enter 결과 F(6)
+        mAdapter = new PeopleAdapter(AdapterViewExamActivity.this, mPeopleData); // F(6)
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(mAdapter);
 //        gridView.setAdapter(adapter);
 //        spinner.setAdapter(adapter);
 
@@ -95,17 +101,20 @@ public class AdapterViewExamActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() { // D(1) new O... Enter
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AdapterViewExamActivity.this, "롱 클릭", Toast.LENGTH_SHORT).show();
-                return true; // 이벤트 소비를 제어. 이벤트 소비를 하겠다. 더 이상 이벤트가 흘러가지 않는다.
-           }
-        });
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() { // D(1) new O... Enter
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(AdapterViewExamActivity.this, "롱 클릭", Toast.LENGTH_SHORT).show();
+//                return true; // 이벤트 소비를 제어. 이벤트 소비를 하겠다. 더 이상 이벤트가 흘러가지 않는다.
+//           }
+//        });
+
+        // Context 메뉴 연결
+        registerForContextMenu(listView); // F(2) 롱클릭과 같이 쓸 수 없다(롱클릭 주석 처리)
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) { // E(1)
         // Inflate the menu; this adds items to the action bar if it is present.
         // 메뉴버튼이 처음 눌러졌을 때 실행되는 콜백메서드
         // 메뉴버튼을 눌렀을 때 보여줄 menu 에 대해서 정의
@@ -132,5 +141,31 @@ public class AdapterViewExamActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) { // F(1) ALt Enter (Import class)
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_coffee, menu); // menu_coffee로 바꿈
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); // ALt Enter (Import class)
+        switch (item.getItemId()) {
+            case R.id.action_item1:
+                Toast.makeText(this, "action 1", Toast.LENGTH_SHORT).show();
+                // 삭제
+                mPeopleData.remove(info.position); // F(3) F(5)
+                // 업데이트
+                mAdapter.notifyDataSetChanged();
+                return true;
+            case R.id.action_item2:
+                Toast.makeText(this, "action 2", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 }
