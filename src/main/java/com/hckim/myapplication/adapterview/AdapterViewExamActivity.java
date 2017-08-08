@@ -2,10 +2,10 @@ package com.hckim.myapplication.adapterview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hckim.myapplication.R;
 
@@ -77,11 +77,20 @@ public class AdapterViewExamActivity extends AppCompatActivity {
                 People people = (People) parent.getAdapter().getItem(position); // Alt Enter Cast to... Enter (people) 생김<방법 2>
 //                data.get(position); // <방법 3> Alt Enter Make 'data' final
 //                Toast.makeText(AdapterViewExamActivity.this, people.toString(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onItemClick: " + people.toString()); // debug C(1) Alt Enter Create constant field 'TAG'
-                Log.e(TAG, "onItemClick: 에러"); // error
-                Log.i(TAG, "onItemClick: 정보"); // information
-                Log.w(TAG, "onItemClick: 경고"); // warning
+                Toast.makeText(AdapterViewExamActivity.this, "그냥 클릭", Toast.LENGTH_SHORT).show();
+//                Log.d(TAG, "onItemClick: " + people.toString()); // debug C(1) Alt Enter Create constant field 'TAG'
+//                Log.e(TAG, "onItemClick: 에러"); // error
+//                Log.i(TAG, "onItemClick: 정보"); // information
+//                Log.w(TAG, "onItemClick: 경고"); // warning
             }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() { // D(1) new O... Enter
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(AdapterViewExamActivity.this, "롱 클릭", Toast.LENGTH_SHORT).show();
+                return true; // 이벤트 소비를 제어. 이벤트 소비를 하겠다. 더 이상 이벤트가 흘러가지 않는다.
+           }
         });
     }
 }
