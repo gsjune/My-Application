@@ -188,37 +188,95 @@ public class AdapterViewExamActivity extends AppCompatActivity implements Dialog
             case R.id.action_item1:
                 Toast.makeText(this, "action 1", Toast.LENGTH_SHORT).show();
 
-                // 물어보자 AlertDialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(this); // H(1)
-                builder.setTitle("삭제");
-                builder.setMessage("정말로 삭제하시겠습니까?");
-                builder.setCancelable(false);
-//                builder.setPositiveButton("삭제", null);
-                builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() { // H(2) new On... Enter
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // 삭제
-                        mPeopleData.remove(info.position); // H(3) 이동. info 빨간 줄 Alt Enter Make 'info' final
-                        // 업데이트
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
-                builder.setNegativeButton("아니오", this); // H(4) 맨 위 implements DialogInterface.OnClickListener
-                builder.setIcon(R.drawable.federer); // 큰 그림은 넣으면 안됨
+//                // 물어보자 AlertDialog
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this); // H(1)
+//                builder.setTitle("삭제");
+//                builder.setMessage("정말로 삭제하시겠습니까?");
+//                builder.setCancelable(false);
+////                builder.setPositiveButton("삭제", null);
+//                builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() { // H(2) new On... Enter
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // 삭제
+//                        mPeopleData.remove(info.position); // H(3) 이동. info 빨간 줄 Alt Enter Make 'info' final
+//                        // 업데이트
+//                        mAdapter.notifyDataSetChanged();
+//                    }
+//                });
+//                builder.setNegativeButton("아니오", this); // H(4) 맨 위 implements DialogInterface.OnClickListener
+//                builder.setIcon(R.drawable.federer); // 큰 그림은 넣으면 안됨
+//
+//                builder.create().show();
+//
+////                // 삭제
+////                mPeopleData.remove(info.position);
+////                // 업데이트
+////                mAdapter.notifyDataSetChanged(); // 복잡해서 메소드로 뺌
+                showDefaultDialog(info); // H(5)
+                return true;
+            case R.id.action_item2:
+                Toast.makeText(this, "action 2", Toast.LENGTH_SHORT).show();
+                showCustomDialog(); // H(6) Alt Enter Create method 'showCustomDialog'
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 
-                builder.create().show();
+    private void showCustomDialog() { // H(6)의 결과
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        View view = getLayoutInflater().inflate(R.layout.dialog_signin, null, false);
+        builder.setView(view);
+//        builder.create().show(); // 수정
+        final AlertDialog dialog = builder.create();
+
+        view.findViewById(R.id.positive_button).setOnClickListener(new View.OnClickListener() { // H(7) 추가 new On... Enter
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AdapterViewExamActivity.this, "잘 눌림", Toast.LENGTH_SHORT).show();
+
+                // 다이얼로그 닫기
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.negative_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
+//        builder.setView(view);
+//        builder.create().show(); // 위로 이동 및 수정
+    }
+
+    private void showDefaultDialog(final AdapterView.AdapterContextMenuInfo info) { // H(5)의 결과
+        // 물어보자 AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this); // H(1)
+        builder.setTitle("삭제");
+        builder.setMessage("정말로 삭제하시겠습니까?");
+        builder.setCancelable(false);
+//                builder.setPositiveButton("삭제", null);
+        builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() { // H(2) new On... Enter
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 삭제
+                mPeopleData.remove(info.position); // H(3) 이동. info 빨간 줄 Alt Enter Make 'info' final
+                // 업데이트
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("아니오", this); // H(4) 맨 위 implements DialogInterface.OnClickListener
+        builder.setIcon(R.drawable.federer); // 큰 그림은 넣으면 안됨
+
+        builder.create().show();
 
 //                // 삭제
 //                mPeopleData.remove(info.position);
 //                // 업데이트
 //                mAdapter.notifyDataSetChanged();
-                return true;
-            case R.id.action_item2:
-                Toast.makeText(this, "action 2", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
     }
 
     @Override
