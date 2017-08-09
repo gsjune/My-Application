@@ -1,9 +1,11 @@
 package com.hckim.myapplication.adapterview;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -20,7 +22,7 @@ import com.hckim.myapplication.R;
 
 import java.util.ArrayList;
 
-public class AdapterViewExamActivity extends AppCompatActivity {
+public class AdapterViewExamActivity extends AppCompatActivity implements DialogInterface.OnClickListener {
 
     private static final String TAG = AdapterViewExamActivity.class.getSimpleName(); // C(1)의 결과
     private ArrayList<People> mPeopleData; // F(4)의 결과
@@ -161,16 +163,55 @@ public class AdapterViewExamActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_coffee, menu); // menu_coffee로 바꿈
     }
 
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); // ALt Enter (Import class)
+//        switch (item.getItemId()) {
+//            case R.id.action_item1:
+//                Toast.makeText(this, "action 1", Toast.LENGTH_SHORT).show();
+//                // 삭제
+//                mPeopleData.remove(info.position); // F(3) F(5)
+//                // 업데이트
+//                mAdapter.notifyDataSetChanged();
+//                return true;
+//            case R.id.action_item2:
+//                Toast.makeText(this, "action 2", Toast.LENGTH_SHORT).show();
+//                return true;
+//            default:
+//                return super.onContextItemSelected(item);
+//        }
+//    }
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo(); // ALt Enter (Import class)
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.action_item1:
                 Toast.makeText(this, "action 1", Toast.LENGTH_SHORT).show();
-                // 삭제
-                mPeopleData.remove(info.position); // F(3) F(5)
-                // 업데이트
-                mAdapter.notifyDataSetChanged();
+
+                // 물어보자 AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(this); // H(1)
+                builder.setTitle("삭제");
+                builder.setMessage("정말로 삭제하시겠습니까?");
+                builder.setCancelable(false);
+//                builder.setPositiveButton("삭제", null);
+                builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() { // H(2) new On... Enter
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 삭제
+                        mPeopleData.remove(info.position); // H(3) 이동. info 빨간 줄 Alt Enter Make 'info' final
+                        // 업데이트
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("아니오", this); // H(4) 맨 위 implements DialogInterface.OnClickListener
+                builder.setIcon(R.drawable.federer); // 큰 그림은 넣으면 안됨
+
+                builder.create().show();
+
+//                // 삭제
+//                mPeopleData.remove(info.position);
+//                // 업데이트
+//                mAdapter.notifyDataSetChanged();
                 return true;
             case R.id.action_item2:
                 Toast.makeText(this, "action 2", Toast.LENGTH_SHORT).show();
@@ -192,5 +233,10 @@ public class AdapterViewExamActivity extends AppCompatActivity {
 
         // 뒤로 가기
         super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) { // H(4)의 결과 생김
+
     }
 }
