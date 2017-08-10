@@ -18,6 +18,15 @@ public class BasketballActivity extends AppCompatActivity {
 
         mScoreATextView = (TextView) findViewById(R.id.score_a_text); // (4) Alt Enter
         mScoreBTextView = (TextView) findViewById(R.id.score_b_text); // (5) Alt Enter
+
+        if (savedInstanceState != null) { // B(3)
+            // 복원
+            mScoreA = savedInstanceState.getInt("a");
+            mScoreB = savedInstanceState.getInt("b");
+
+            mScoreATextView.setText("" + mScoreA);
+            mScoreBTextView.setText("" + mScoreB);
+        }
     }
 
     public void onButtonClicked(View view) { // (1) view 눌린 버튼의 레퍼런스가 온다
@@ -59,15 +68,15 @@ public class BasketballActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        // 복원
-        mScoreA = savedInstanceState.getInt("a");
-        mScoreB = savedInstanceState.getInt("b");
-
-        mScoreATextView.setText("" + mScoreA);
-        mScoreBTextView.setText("" + mScoreB);
-    }
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) { // B(2) 복원은 onCreate에서도 할 수 있다.
+//        super.onRestoreInstanceState(savedInstanceState);
+//
+//        // 복원
+//        mScoreA = savedInstanceState.getInt("a");
+//        mScoreB = savedInstanceState.getInt("b");
+//
+//        mScoreATextView.setText("" + mScoreA);
+//        mScoreBTextView.setText("" + mScoreB);
+//    }
 }
