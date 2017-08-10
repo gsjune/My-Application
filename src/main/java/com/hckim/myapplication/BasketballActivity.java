@@ -49,4 +49,25 @@ public class BasketballActivity extends AppCompatActivity {
         mScoreATextView.setText("" + mScoreA); // (6)
         mScoreBTextView.setText("" + mScoreB);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) { // B(1)
+        // 저장
+        outState.putInt("a", mScoreA);
+        outState.putInt("b", mScoreB);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // 복원
+        mScoreA = savedInstanceState.getInt("a");
+        mScoreB = savedInstanceState.getInt("b");
+
+        mScoreATextView.setText("" + mScoreA);
+        mScoreBTextView.setText("" + mScoreB);
+    }
 }
