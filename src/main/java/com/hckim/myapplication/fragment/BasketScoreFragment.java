@@ -37,6 +37,18 @@ public class BasketScoreFragment extends Fragment implements View.OnClickListene
         view.findViewById(R.id.button_1).setOnClickListener(this); // (5) Alt Enter Make BasketScoreFragment implements... Enter
         view.findViewById(R.id.button_2).setOnClickListener(this);
         view.findViewById(R.id.button_3).setOnClickListener(this);
+
+        if (savedInstanceState != null) { // (11)
+            mScore = savedInstanceState.getInt("score");
+            mScoreTextView.setText("" + mScore);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) { // (10)
+        outState.putInt("score", mScore);
+        super.onSaveInstanceState(outState);
+
     }
 
     @Override
