@@ -96,7 +96,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".fragment.BasketballActivity">
+        <activity android:name=".fragment.basketball.BasketballActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

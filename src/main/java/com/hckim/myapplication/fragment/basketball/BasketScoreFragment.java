@@ -1,4 +1,4 @@
-package com.hckim.myapplication.fragment;
+package com.hckim.myapplication.fragment.basketball;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.hckim.myapplication.fragment;
+package com.hckim.myapplication.fragment.basketball;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

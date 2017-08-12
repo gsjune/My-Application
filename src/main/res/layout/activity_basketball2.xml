@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hckim.myapplication.fragment.BasketballActivity">
+    tools:context="com.hckim.myapplication.fragment.basketball.BasketballActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
 
         <fragment
             android:id="@+id/frag_team_a"
-            android:name="com.hckim.myapplication.fragment.BasketScoreFragment"
+            android:name="com.hckim.myapplication.fragment.basketball.BasketScoreFragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -21,7 +21,7 @@
 
         <fragment
             android:id="@+id/frag_team_b"
-            android:name="com.hckim.myapplication.fragment.BasketScoreFragment"
+            android:name="com.hckim.myapplication.fragment.basketball.BasketScoreFragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
