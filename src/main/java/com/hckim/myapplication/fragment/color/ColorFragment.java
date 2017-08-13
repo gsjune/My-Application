@@ -27,4 +27,8 @@ public class ColorFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_color, container, false);
     }
 
+    public void setColor(int color) {
+        getView().setBackgroundColor(color);
+    }
+
 }
