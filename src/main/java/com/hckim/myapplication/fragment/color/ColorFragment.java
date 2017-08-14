@@ -33,6 +33,22 @@ public class ColorFragment extends Fragment {
         return fragment;
     }
 
+    public static ColorFragment newInstance() { // C(1)
+
+        Bundle args = new Bundle();
+
+        int r = new Random().nextInt(256); // C(4) 아래에서 이동
+        int g = new Random().nextInt(256);
+        int b = new Random().nextInt(256);
+        int color = Color.argb(255, r, g, b);
+
+        args.putInt("color", color); // C(2)
+
+        ColorFragment fragment = new ColorFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,10 +60,13 @@ public class ColorFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) { // B(1) 색깔 랜덤으로 onvi... Enter
         super.onViewCreated(view, savedInstanceState);
 
-        int r = new Random().nextInt(256);
-        int g = new Random().nextInt(256);
-        int b = new Random().nextInt(256);
-        int color = Color.argb(255, r, g, b);
+//        int r = new Random().nextInt(256);
+//        int g = new Random().nextInt(256);
+//        int b = new Random().nextInt(256);
+//        int color = Color.argb(255, r, g, b);
+
+        int color = getArguments().getInt("color"); // C(3)
+
         view.setBackgroundColor(color);
     }
 

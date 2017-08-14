@@ -44,7 +44,7 @@ public class ColorActivity extends AppCompatActivity {
     }
 
     public void onCreateRandomFragmentButtonClicked(View view) {
-        ColorFragment fragment = new ColorFragment();
+        ColorFragment fragment = ColorFragment.newInstance();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
