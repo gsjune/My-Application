@@ -51,7 +51,7 @@ public class ColorFragment extends Fragment {
         view.setBackgroundColor(color);
     }
 
-    public void setColor(int color) {
-        getView().setBackgroundColor(color);
-    }
+//    public void setColor(int color) {
+//        getView().setBackgroundColor(color);
+//    }
 }
