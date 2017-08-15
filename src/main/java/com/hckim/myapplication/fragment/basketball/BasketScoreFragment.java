@@ -19,7 +19,8 @@ import com.hckim.myapplication.R;
 public class BasketScoreFragment extends Fragment implements View.OnClickListener {
 
     public interface OnWarningListener { // B(2)
-        void onWarning();
+//        void onWarning();
+        void onWarning(String teamName); // B(6)
     }
 
     private TextView mScoreTextView; // (3)
@@ -82,7 +83,7 @@ public class BasketScoreFragment extends Fragment implements View.OnClickListene
                 break;
         }
         if (mScore > 20) {
-            mListener.onWarning(); // B(4)
+            mListener.onWarning(mTeamNameTextView.getText().toString()); // B(4). () 안 B(7)
         }
         mScoreTextView.setText("" + mScore);
     }
@@ -101,5 +102,6 @@ public class BasketScoreFragment extends Fragment implements View.OnClickListene
     }
 }
 /*
-Fragment B(1) Activity B(1) B(2) B(3) Fragment B(2) Activity B(4) B(5) Fragment B(3) B(4) B(5)
+Fragment B(1) Activity B(1) B(2) B(3) Fragment B(2) Activity B(4) B(5) Fragment B(3) B(4) B(5) (Activity B(2) B(3) 사라짐) B(6) B(7)
+Activity B(5) 다시. B(6)
  */
