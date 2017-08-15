@@ -1,5 +1,7 @@
 package com.hckim.myapplication.fragment.basketball;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,9 +17,24 @@ import com.hckim.myapplication.R;
  */
 
 public class BasketScoreFragment extends Fragment implements View.OnClickListener {
+
+    public interface OnWarningListener { // B(2)
+        void onWarning();
+    }
+
     private TextView mScoreTextView; // (3)
     private int mScore; // (6)
     private TextView mTeamNameTextView; // (9)'
+
+    private OnWarningListener mListener; // B(3) B(2)의 onWarning 발동시키려면 객체가 필요
+
+    @Override
+    public void onAttach(Context context) { // B(5) Activity 연결
+        super.onAttach(context);
+
+        // 액티비티와 연결됨
+        mListener = (OnWarningListener) context; // B(6) Alt Enter Cast...하면 (onWarningListener) 만들어짐
+    }
 
     // 뷰를 만드는 곳
     @Nullable
@@ -64,6 +81,9 @@ public class BasketScoreFragment extends Fragment implements View.OnClickListene
                 mScore += 3;
                 break;
         }
+        if (mScore > 20) {
+            mListener.onWarning(); // B(4)
+        }
         mScoreTextView.setText("" + mScore);
     }
 
@@ -75,4 +95,11 @@ public class BasketScoreFragment extends Fragment implements View.OnClickListene
     public void setTeamName(String name) { // (8)
         mTeamNameTextView.setText(name); // (9)''
     }
+
+    public void warning() { // B(1)
+        getView().setBackgroundColor(Color.RED);
+    }
 }
+/*
+Fragment B(1) Activity B(1) B(2) B(3) Fragment B(2) Activity B(4) B(5) Fragment B(3) B(4) B(5)
+ */
